@@ -1,0 +1,15 @@
+:root {
+  --font-light: 300;
+  --font-regular: 400;
+  --font-bold: 700;
+}
+
+@font-face {
+  font-family: NotoSans;
+  src: resolve('fonts/NotoSans.otf') format('opentype');
+}
+
+@font-face {
+  font-family: Chig;
+  src: resolve('fonts/chig.ttf') format('truetype');
+}

@@ -1,0 +1,8 @@
+@import 'normalize.css';
+@import 'font.css';
+@import 'color.css';
+
+body {
+  font-size: 1em;
+  font-family: -apple-system, Apple SD Gothic Neo, NotoSans, sans-serif;
+}

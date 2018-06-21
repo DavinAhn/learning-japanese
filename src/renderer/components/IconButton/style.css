@@ -1,0 +1,35 @@
+@svg-load close resolve('images/icon-close.svg') {
+  path:first-child {
+    fill: #2e3847;
+  }
+}
+@svg-load minimize resolve('images/icon-minimize.svg') {
+  rect:first-child {
+    fill: #2e3847;
+  }
+}
+
+.button {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  background-color: transparent;
+  text-align: center;
+  border: initial;
+  padding: 0;
+
+  &::before {
+    color: var(--blueGray70);
+  }
+  &:hover {
+    opacity: .5;
+  }
+}
+
+.close::before {
+  content: svg-inline(close);
+}
+
+.minimize::before {
+  content: svg-inline(minimize);
+}

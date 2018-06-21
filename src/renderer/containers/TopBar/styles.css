@@ -1,0 +1,33 @@
+.bar {
+  height: 1.4rem;
+  padding: .3125rem;
+  background-color: var(--slateGray5);
+  align-items: center;
+  -webkit-app-region: drag;
+
+  div {
+    display: inline-block;
+  }
+}
+
+.title {
+  float: left;
+  margin-left: .3125rem;
+  color: var(--blueGray70);
+  font-size: 1.25rem;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.buttons {
+  float: right;
+  -webkit-app-region: no-drag;
+
+  button {
+    margin-left: .7rem;
+
+    &:focus, &:hover {
+      text-decoration: none;
+    }
+  }
+}

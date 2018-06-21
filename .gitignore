@@ -1,0 +1,9 @@
+.vscode
+*.log
+node_modules
+index.js
+!src/**/index.js
+*.*.map
+release
+build
+dist
