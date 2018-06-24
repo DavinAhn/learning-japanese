@@ -33,7 +33,13 @@ if (isDev) {
       sourceMap: true,
       uglifyOptions: {
         warnings: false,
-        mangle: true,
+        mangle: {
+          eval: true,
+          properties: {
+            builtins: true,
+            regex: /secretKey|fromBytes|toBytes|ModeOfOperation|cbc|padding|ecb|pkcs7|encrypt|decrypt/i
+          }
+        },
         compress: true,
         output: {
           comments: false,

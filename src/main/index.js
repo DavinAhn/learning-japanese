@@ -1,3 +1,4 @@
+import aesjs from 'aes-js';
 import { app, Menu, ipcMain } from 'electron';
 import settings from 'electron-settings';
 import fs from 'fs';
@@ -34,15 +35,20 @@ const fetchData = (completion) => {
         dataSHA: sha
       });
     }
-    fs.readFile(dataPath, { encoding: 'utf8' }, (error, data) => {
+    fs.readFile(dataPath, (error, encryptedBytes) => {
       if (error) {
         completion([], error);
-      } else {
-        try {
-          completion(JSON.parse(data));
-        } catch (e) {
-          completion([], e);
-        }
+        return;
+      }
+      const secretKeyBytes = aesjs.utils.utf8.toBytes('9fd6591ffc2f42e7');
+      const aes = new aesjs.ModeOfOperation.cbc(secretKeyBytes);
+      const decryptedBytes = aes.decrypt(encryptedBytes);
+      const strippedbytes = aesjs.padding.pkcs7.strip(decryptedBytes);
+      const decryptedString = aesjs.utils.utf8.fromBytes(strippedbytes);
+      try {
+        completion(JSON.parse(decryptedString));
+      } catch (e) {
+        completion([], e);
       }
     });
   }, (error) => {

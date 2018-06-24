@@ -34,7 +34,9 @@
     "clean": "rimraf ./index.* dist build release",
     "release": "npm-run-all clean build-prod release:**",
     "release:mac": "build --mac",
-    "release:win": "build --win"
+    "release:win": "build --win",
+    "encrypt": "node ./data/crypt.js --e",
+    "decrypt": "node ./data/crypt.js --d"
   },
   "main": "index.js",
   "build": {
@@ -90,6 +92,7 @@
     }
   },
   "dependencies": {
+    "aes-js": "^3.1.1",
     "classnames": "^2.2.5",
     "history": "^4.7.2",
     "react": "^16.4.0",
