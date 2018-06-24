@@ -26,12 +26,6 @@
             "type": "npm",
             "script": "release",
             "problemMatcher": []
-        },
-        {
-            "label": "Test",
-            "type": "npm",
-            "script": "test",
-            "problemMatcher": []
         }
     ]
 }
