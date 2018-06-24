@@ -7,8 +7,8 @@ export class BaseComponent extends React.PureComponent {
     onClick: PropTypes.func,
   }
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.handleClick = this.handleClick.bind(this);
   }
 

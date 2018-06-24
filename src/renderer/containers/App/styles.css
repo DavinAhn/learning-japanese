@@ -1,4 +1,9 @@
 .body {
-  margin-top: 5rem;
   text-align: center;
+}
+
+.message {
+  margin-top: 80px;
+  margin-bottom: 80px;
+  font-size: 48px;
 }

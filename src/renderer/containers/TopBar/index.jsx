@@ -9,6 +9,7 @@ const { remote } = window.require('electron');
 export class TopBar extends React.Component {
   static propTypes = {
     title: PropTypes.string,
+    onBack: PropTypes.func,
   }
 
   static defaultProps = {
@@ -16,10 +17,16 @@ export class TopBar extends React.Component {
   }
 
   render() {
+    const { onBack } = this.props;
     return (
-      <div className={styles.bar}>
+      <div className={`${styles.fixedTop} ${styles.bar}`}>
         <div className={styles.title}>{this.props.title}</div>
         <div className={styles.buttons}>
+          {onBack ? 
+            <IconButton icon={IconType.BACK} onClick={() => {
+              onBack();
+            }} /> : ''
+          }
           <IconButton icon={IconType.MINIMIZE} onClick={() => {
             remote.getCurrentWindow().minimize();
           }} />

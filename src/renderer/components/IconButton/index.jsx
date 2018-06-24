@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { BaseComponent } from 'renderer/components/Base';
 import PropTypes from 'prop-types';
-import * as styles from './style.css';
+import * as styles from './styles.css';
 
 const IconType = {
   CLOSE: 'close',
   MINIMIZE: 'minimize',
+  BACK: 'back',
 }
 
 class IconButton extends BaseComponent {
@@ -15,6 +16,7 @@ class IconButton extends BaseComponent {
     color: PropTypes.oneOf([
       IconType.CLOSE, 
       IconType.MINIMIZE,
+      IconType.BACK,
     ]),
   }
 

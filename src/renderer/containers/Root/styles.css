@@ -5,4 +5,9 @@
 body {
   font-size: 1em;
   font-family: -apple-system, Apple SD Gothic Neo, NotoSans, sans-serif;
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--dodgerBlue40);
 }

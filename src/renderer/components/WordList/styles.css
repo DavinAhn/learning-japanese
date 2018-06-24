@@ -1,0 +1,7 @@
+.list {
+  ul {
+    padding-left: 20px;
+    display: inline-block;
+    width: 100%;
+  }
+}

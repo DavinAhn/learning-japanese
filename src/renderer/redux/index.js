@@ -1,10 +1,10 @@
-import { routerReducer } from 'react-router-redux';
+import { routerReducer, RouterState } from 'react-router-redux';
 import { combineReducers } from 'redux';
-import { AppState } from 'renderer/redux/reducers/App';
+import { appReducer } from 'renderer/redux/reducers/App';
 
 export const rootReducer = combineReducers({
-  AppState,
+  app: appReducer,
   router: routerReducer,
 });
 
-export { AppState };
+export { RouterState };

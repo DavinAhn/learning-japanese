@@ -8,6 +8,11 @@
     fill: #2e3847;
   }
 }
+@svg-load back resolve('images/icon-back.svg') {
+  rect:first-child {
+    fill: #2e3847;
+  }
+}
 
 .button {
   width: 24px;
@@ -32,4 +37,8 @@
 
 .minimize::before {
   content: svg-inline(minimize);
+}
+
+.back::before {
+  content: svg-inline(back);
 }

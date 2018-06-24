@@ -1,0 +1,23 @@
+.item {
+  display: inline;
+  float: left;
+  list-style-type: none;
+  width: 320px;
+  padding: 20px 0px;
+}
+
+.word {
+  font-family: Chig;
+  font-size: 52px; 
+  text-align: center;
+  vertical-align: middle;
+}
+
+.emptyRuby {
+  margin-top: 23px;
+}
+
+.mean {
+  text-align: center;
+  vertical-align: middle;
+}

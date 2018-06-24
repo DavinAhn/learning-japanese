@@ -1,9 +1,7 @@
 import { BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-
-const windowMinWidth = 720;
-const windowMinHeight = 720;
+import { windowMaxWidth, windowMaxHeight } from 'Constant';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -14,10 +12,10 @@ export default class Window {
     return {
       x: undefined,
       y: undefined,
-      width: windowMinWidth,
-      minWidth: windowMinWidth,
-      height: windowMinHeight,
-      minHeight: windowMinHeight,
+      width: windowMaxWidth,
+      minWidth: windowMaxWidth,
+      height: windowMaxHeight,
+      minHeight: windowMaxHeight,
       minimizable: true,
       maximizable: false,
       fullscreenable: false,

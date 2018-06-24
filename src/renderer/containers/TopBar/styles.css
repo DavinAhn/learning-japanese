@@ -1,6 +1,6 @@
 .bar {
-  height: 1.4rem;
-  padding: .3125rem;
+  height: 22px;
+  padding: 5px;
   background-color: var(--slateGray5);
   align-items: center;
   -webkit-app-region: drag;
@@ -10,11 +10,19 @@
   }
 }
 
+.fixedTop {
+  position: fixed !important;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
 .title {
   float: left;
-  margin-left: .3125rem;
+  margin-left: 5px;
   color: var(--blueGray70);
-  font-size: 1.25rem;
+  font-size: 21px;
   line-height: 1;
   vertical-align: middle;
 }
@@ -22,9 +30,10 @@
 .buttons {
   float: right;
   -webkit-app-region: no-drag;
+  margin-right: 10px;
 
   button {
-    margin-left: .7rem;
+    margin-left: 20px;
 
     &:focus, &:hover {
       text-decoration: none;

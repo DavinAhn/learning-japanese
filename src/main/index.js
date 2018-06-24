@@ -1,6 +1,9 @@
-import { app, Menu } from 'electron';
+import { app, Menu, ipcMain } from 'electron';
 import settings from 'electron-settings';
+import fs from 'fs';
 import API from 'main/API';
+import { dataPath } from 'main/Path';
+import Event from 'Event';
 import Window from 'main/Window';
 
 const isDev = process.env.ELECTRON_ENV === 'development';
@@ -8,7 +11,8 @@ let watcher = null;
 
 const loadDevToolsIfNeeded = () => {
   if (isDev) {
-    Window.getMainWindow().webContents.openDevTools();
+    const window = Window.getMainWindow();
+    window.webContents.openDevTools();
     const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
     [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS].forEach(extension => {
       installExtension(extension)
@@ -22,7 +26,7 @@ const loadDevToolsIfNeeded = () => {
   }
 };
 
-const fetchData = () => {
+const fetchData = (completion) => {
   const dataSHA = settings.get('app.dataSHA');
   API.fetchData(dataSHA, (updated, sha) => {
     if (updated) {
@@ -30,8 +34,31 @@ const fetchData = () => {
         dataSHA: sha
       });
     }
+    fs.readFile(dataPath, { encoding: 'utf8' }, (error, data) => {
+      if (error) {
+        completion([], error);
+      } else {
+        try {
+          completion(JSON.parse(data));
+        } catch (e) {
+          completion([], e);
+        }
+      }
+    });
   }, (error) => {
-    console.log(error);
+    completion([], error);
+  });
+};
+
+const subscribeEvents = () => {
+  ipcMain.on(Event.REQUESTLIST, (event, args) => {
+    fetchData((list, error) => {
+      if (error) {
+        console.log(error);
+      } else {
+        event.sender.send(Event.SENDLIST, list);
+      }
+    });
   });
 };
 
@@ -42,7 +69,7 @@ app.on('ready', async () => {
   Window.loadMainWindow();
   Menu.setApplicationMenu(null);
   loadDevToolsIfNeeded();
-  fetchData();
+  subscribeEvents();
 });
 
 app.on('quit', () => {
