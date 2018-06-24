@@ -1,28 +1,48 @@
 import { app, Menu } from 'electron';
+import settings from 'electron-settings';
+import API from 'main/API';
 import Window from 'main/Window';
 
 const isDev = process.env.ELECTRON_ENV === 'development';
 let watcher = null;
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', async () => {
-  const window = Window.loadMainWindow();
+const loadDevToolsIfNeeded = () => {
   if (isDev) {
-    window.webContents.openDevTools();
+    Window.getMainWindow().webContents.openDevTools();
     const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
     [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS].forEach(extension => {
       installExtension(extension)
         .then((name) => console.log(`Added Extension: ${name}`))
         .catch((err) => console.log(`An error occurred: ${err}`));
     });
+    watcher = require('chokidar').watch(`${__dirname}/dist`);
+    watcher.on('change', () => {
+      window.reload();
+    });
   }
-  Menu.setApplicationMenu(null);
-  watcher = require('chokidar').watch(`${__dirname}/dist`);
-  watcher.on('change', () => {
-    window.reload();
+};
+
+const fetchData = () => {
+  const dataSHA = settings.get('app.dataSHA');
+  API.fetchData(dataSHA, (updated, sha) => {
+    if (updated) {
+      settings.set('app', {
+        dataSHA: sha
+      });
+    }
+  }, (error) => {
+    console.log(error);
   });
+};
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.on('ready', async () => {
+  Window.loadMainWindow();
+  Menu.setApplicationMenu(null);
+  loadDevToolsIfNeeded();
+  fetchData();
 });
 
 app.on('quit', () => {
