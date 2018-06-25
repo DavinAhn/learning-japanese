@@ -9,7 +9,7 @@ const base = 'https://api.github.com/repos/DavinAhn/learning-japanese';
 const fetchData = (dataSHA, updated, error) => {
   axios.get(`${base}/contents/data?ref=master`, { timeout })
     .then((response) => {
-      const fileInfo = response.data.filter(item => item.name === path.basename(dataPath));
+      const fileInfo = response.data.find(item => item.name === path.basename(dataPath));
       if (!fileInfo) {
         error('Invaild fileinfo.');
         return;
