@@ -32,11 +32,14 @@ const fetchData = (completion) => {
   API.fetchData(dataSHA, (updated, sha) => {
     if (updated) {
       settings.set('app', {
-        dataSHA: sha
+        dataSHA: sha,
       });
     }
     fs.readFile(dataPath, (error, encryptedBytes) => {
       if (error) {
+        settings.set('app', {
+          dataSHA: null,
+        });
         completion([], error);
         return;
       }

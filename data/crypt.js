@@ -14,7 +14,7 @@ const cryptor = (type, key, src, dist) => {
     let bytes;
     let message = '...?!';
     if (type === '--d') {
-      bytes = aesjs.padding.pkcs7.pad(aes.decrypt(data));
+      bytes = aesjs.padding.pkcs7.strip(aes.decrypt(data));
       message = 'decrtyped.';
     } else if (type === '--e') {
       bytes = aes.encrypt(aesjs.padding.pkcs7.pad(data));

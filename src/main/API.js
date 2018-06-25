@@ -1,5 +1,6 @@
 import axios from 'axios';
 import fs from 'fs';
+import path from 'path';
 import { dataPath } from 'main/Path';
 
 const timeout = 1000 * 10;
@@ -8,8 +9,7 @@ const base = 'https://api.github.com/repos/DavinAhn/learning-japanese';
 const fetchData = (dataSHA, updated, error) => {
   axios.get(`${base}/contents/data?ref=master`, { timeout })
     .then((response) => {
-      const data = response.data;
-      const fileInfo = data[0];
+      const fileInfo = response.data.filter(item => item.name === path.basename(dataPath));
       if (!fileInfo) {
         error('Invaild fileinfo.');
         return;
