@@ -35,8 +35,8 @@ rl.setPrompt('key> ');
 rl.prompt();
 rl.on('line', (line) => {
   rl.close();
-  const path1 = './data/index.json';
-  const path2 = './data/index.dat';
+  const path1 = './data/data.json';
+  const path2 = './data/data.dat';
   if (type === '--d') {
     cryptor(type, line, path2, path1);
   } else if (type === '--e') {
