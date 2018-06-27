@@ -1,9 +1,19 @@
 .item {
-  display: inline;
+  display: block;
   float: left;
   list-style-type: none;
-  width: 320px;
-  padding: 20px 0px;
+  width: 48%;
+  height: 340px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+    margin-bottom: 30px;
+    margin-right: 12px;
+}
+
+.card {
+    height: 100%;
+    display: block;
+    margin: 25% 0;
 }
 
 .word {
@@ -13,11 +23,8 @@
   vertical-align: middle;
 }
 
-.emptyRuby {
-  margin-top: 23px;
-}
-
 .mean {
+  padding-top: 45px;
   text-align: center;
   vertical-align: middle;
 }

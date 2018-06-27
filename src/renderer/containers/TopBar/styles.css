@@ -18,6 +18,14 @@
   z-index: 1030;
 }
 
+.line {
+  position: fixed;
+  top: 32px;
+  width: 100%;
+  height: 1px;
+  background-color: var(--slateGray20);
+}
+
 .title {
   float: left;
   margin-left: 5px;

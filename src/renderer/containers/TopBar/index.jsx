@@ -19,21 +19,24 @@ export class TopBar extends React.Component {
   render() {
     const { onBack } = this.props;
     return (
-      <div className={`${styles.fixedTop} ${styles.bar}`}>
-        <div className={styles.title}>{this.props.title}</div>
-        <div className={styles.buttons}>
-          {onBack ? 
-            <IconButton icon={IconType.BACK} onClick={() => {
-              onBack();
-            }} /> : ''
-          }
-          <IconButton icon={IconType.MINIMIZE} onClick={() => {
-            remote.getCurrentWindow().minimize();
-          }} />
-          <IconButton icon={IconType.close} onClick={() => {
-            remote.getCurrentWindow().close();
-          }} />
+      <div className={styles.fixedTop}>
+        <div className={styles.bar}>
+          <div className={styles.title}>{this.props.title}</div>
+          <div className={styles.buttons}>
+            {onBack ? 
+              <IconButton icon={IconType.BACK} onClick={() => {
+                onBack();
+              }} /> : ''
+            }
+            <IconButton icon={IconType.MINIMIZE} onClick={() => {
+              remote.getCurrentWindow().minimize();
+            }} />
+            <IconButton icon={IconType.close} onClick={() => {
+              remote.getCurrentWindow().close();
+            }} />
+          </div>
         </div>
+        <div className={styles.line}></div>
       </div>
     );
   }
