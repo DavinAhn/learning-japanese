@@ -4,10 +4,22 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { TopBar } from 'renderer/containers/TopBar';
 import { WordList } from 'renderer/components/WordList';
+import * as AppActions from 'renderer/redux/actions/App';
 import { windowMaxHeight, barHeight } from 'Constant';
+import Event from 'Event';
 import * as styles from './styles.css';
 
+const { ipcRenderer } = window.require('electron');
+
 export class Learn extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    ipcRenderer.on(Event.SENDLIST, (event, args) => {
+      this.props.updateList(args);
+    });
+    ipcRenderer.send(Event.REQUESTLIST);
+  }
+
   render() {
     return (
       <div>
@@ -32,9 +44,13 @@ export class Learn extends React.Component {
 
 const mapStateToProps = (state) => ({ state });
 
+const mapDispatchToProps = (dispatch) => ({
+  updateList: (list) => dispatch(AppActions.updateList(list)),
+});
+
 export const ConnectedLearn = withRouter(connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
   null,
   { pure: false },
 )(Learn));
