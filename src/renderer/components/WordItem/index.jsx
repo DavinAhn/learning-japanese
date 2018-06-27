@@ -34,14 +34,20 @@ export class WordItem extends React.PureComponent {
       `;
 
     const { item } = this.props;
-    const { word, sound } = item;
+    const { word, sound, furi } = item;
+    let props = { word };
+    if (furi) {
+      props.furi = furi;
+    } else {
+      props.reading = sound[0];
+    }
+
     return (
       <div className={styles.item}>
         <div className={styles.card}>
           <ReactFuri
             className={styles.card}
-            word={word}
-            reading={sound[0].ja}
+            {...props}
             render={({ pairs }) => (
               <Wrapper lang="ja">
                 {pairs.map(([furigana, text], index) => (
