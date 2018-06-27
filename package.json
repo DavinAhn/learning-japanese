@@ -95,6 +95,7 @@
     "aes-js": "^3.1.1",
     "classnames": "^2.2.5",
     "history": "^4.7.2",
+    "is-online": "^7.0.0",
     "react": "^16.4.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.4.0",
