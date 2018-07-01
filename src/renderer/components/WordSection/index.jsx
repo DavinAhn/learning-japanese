@@ -5,8 +5,7 @@ import * as styles from './styles.css';
 
 export class WordSection extends React.PureComponent {
   static propTypes = {
-    label: PropTypes.string.isRequired,
-    list: PropTypes.array.isRequired,
+    section: PropTypes.object.isRequired,
   }
 
   constructor(props, context) {
@@ -17,17 +16,17 @@ export class WordSection extends React.PureComponent {
   }
 
   render() {
-    const { label, list } = this.props;
+    const { section } = this.props;
     return (
       <ul className={styles.section}>
         <div className={styles.sectionTitle} onClick={() => {
           this.setState({ shown: !this.state.shown })
         }}>
-          {label} ({list.length})
+          {section.key} ({section.wordCount})
         </div>
         <hr />
-        {this.state.shown ? list.map((item, idx) => (
-          <WordItem key={`WordItem_${idx}`} item={item} />
+        {this.state.shown ? section.words.map((word) => (
+          <WordItem key={`WordItem_${word.hash}`} word={word} />
         )) : ''}
       </ul>
     );

@@ -6,11 +6,7 @@ import * as styles from './styles.css';
 
 export class WordItem extends React.PureComponent {
   static propTypes = {
-    item: PropTypes.object.isRequired,
-  }
-
-  getMean() {
-    return this.props.item.mean.join(', ');
+    word: PropTypes.object.isRequired,
   }
 
   render() {
@@ -33,17 +29,17 @@ export class WordItem extends React.PureComponent {
       font-size: 70px;
       `;
 
-    const { item } = this.props;
-    const { word, sound, furi } = item;
-    let props = { word };
-    if (furi) {
-      props.furi = furi;
+    const { word } = this.props;
+    const mean = word.meanings.join(', ');
+    let props = { word: word.text };
+    if (word.furi) {
+      props.furi = word.furi;
     } else {
-      props.reading = sound[0];
+      props.reading = word.readings[0];
     }
 
     return (
-      <div className={styles.item}>
+      <li className={styles.item}>
         <div className={styles.card}>
           <ReactFuri
             className={styles.card}
@@ -60,10 +56,10 @@ export class WordItem extends React.PureComponent {
             )}>
           </ReactFuri>
           <div className={styles.mean}>
-            {this.getMean()}
+            {mean}
           </div>
         </div>
-      </div>
+      </li>
     )
   }
 }

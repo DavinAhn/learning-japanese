@@ -2,24 +2,17 @@ import * as React from 'react';
 import Scrollbars from 'react-custom-scrollbars';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { TopBar } from 'renderer/containers/TopBar';
-import { WordList } from 'renderer/components/WordList';
-import * as AppActions from 'renderer/redux/actions/App';
+import {
+  BaseContainer,
+  mapStateToProps,
+  mapDispatchToProps,
+} from 'renderer/containers/Base';
 import { windowMaxHeight, barHeight } from 'Constant';
-import Event from 'Event';
+import { TopBar } from 'renderer/containers/TopBar';
+import { WordSetList } from 'renderer/components/WordSetList';
 import * as styles from './styles.css';
 
-const { ipcRenderer } = window.require('electron');
-
-export class Learn extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    ipcRenderer.on(Event.SENDLIST, (event, args) => {
-      this.props.updateList(args);
-    });
-    ipcRenderer.send(Event.REQUESTLIST);
-  }
-
+export class Learn extends BaseContainer {
   render() {
     return (
       <div>
@@ -34,19 +27,13 @@ export class Learn extends React.Component {
             renderThumbHorizontal={props => <div {...props} className={styles.scrollThumb} />}
             renderThumbVertical={props => <div {...props} className={styles.scrollThumb} />}
           >
-            <WordList list={this.props.state.app.list} />
+            <WordSetList sets={this.getWordAccessor().sets} />
           </Scrollbars>
         </div>
       </div>
     );
   }
 }
-
-const mapStateToProps = (state) => ({ state });
-
-const mapDispatchToProps = (dispatch) => ({
-  updateList: (list) => dispatch(AppActions.updateList(list)),
-});
 
 export const ConnectedLearn = withRouter(connect(
   mapStateToProps,
