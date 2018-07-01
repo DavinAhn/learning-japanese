@@ -18,6 +18,7 @@ export class InputBox extends BaseComponent {
   static propTypes = {
     id: PropTypes.string,
     placeHolder: PropTypes.string,
+    value: PropTypes.string,
     onChangeValue: PropTypes.func,
     isReadOnly: PropTypes.bool,
     state: PropTypes.oneOf([
@@ -59,7 +60,7 @@ export class InputBox extends BaseComponent {
   }
 
   render() {
-    const { id, placeholder, isDisabled, isReadOnly } = this.props;
+    const { id, placeholder, isDisabled, value, isReadOnly } = this.props;
     return (
       <input
         id={id}
@@ -68,6 +69,7 @@ export class InputBox extends BaseComponent {
         onBlur={this.handleChange}
         disabled={isDisabled}
         placeholder={placeholder}
+        value={value}
         readOnly={isReadOnly}
       />
     );

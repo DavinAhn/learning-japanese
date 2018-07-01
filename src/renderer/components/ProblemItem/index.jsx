@@ -37,12 +37,12 @@ export class ProblemItem extends React.PureComponent {
     onChangeValue(num, this.answer);
   }
 
-  makeInputProps(type) {
+  makeInputProps(type, problem) {
     const { score } = this.props;
     const isReadOnly = score !== undefined; 
     let props = {
+      type: 'text',
       placeholder: type === 'reading' ? '음' : '뜻',
-      isReadOnly,
       onChangeValue: (e, value) => {
         if (!isReadOnly) {
           this.onChangeValue(type, value);
@@ -55,7 +55,8 @@ export class ProblemItem extends React.PureComponent {
     if (score) {
       props = {
         ...props,
-        state: score.leading ? InputBoxState.right : InputBoxState.wrong,
+        state: score[type] ? InputBoxState.right : InputBoxState.wrong,
+        value: `${this.answer[type] || ''} -> ${problem[`${type}s`].join(', ')}`,
       }
     }
     return props;
@@ -103,9 +104,9 @@ export class ProblemItem extends React.PureComponent {
           )}>
         </ReactFuri>
         <div className={styles.input}>
-          <InputBox {...this.makeInputProps('reading')} />
+          <InputBox {...this.makeInputProps('reading', problem)} />
           &nbsp;&nbsp;&nbsp;
-          <InputBox {...this.makeInputProps('meaning')} />
+          <InputBox {...this.makeInputProps('meaning', problem)} />
         </div>
       </li>
     )

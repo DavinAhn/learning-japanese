@@ -74,11 +74,11 @@ export class Test extends BaseContainer {
     this.setState({
       isSubmit: true,
       scorecard,
-      score: ((scorecard
+      score: (scorecard
         .map((score) => {
-          return ((score.reading << 0) + (score.menaing << 0));
+          return ((score.reading << 0) + (score.meaning << 0));
         })
-        .reduce((s1, s2) => s1 + s2, 0) / 2) / problems.length) * 100
+        .reduce((s1, s2) => s1 + s2, 0) / (problems.length * 2)) * 100
     });
   }
 
