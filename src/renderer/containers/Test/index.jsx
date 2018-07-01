@@ -8,7 +8,7 @@ import {
   mapStateToProps,
   mapDispatchToProps,
 } from 'renderer/containers/Base';
-import { windowMaxHeight, barHeight } from 'Constant';
+import { windowMinHeight, barHeight } from 'Constant';
 import { Button } from 'renderer/components/Button';
 import { ProblemItem } from 'renderer/components/ProblemItem';
 import { TopBar } from 'renderer/containers/TopBar';
@@ -42,6 +42,7 @@ export class Test extends BaseContainer {
     this.answers = answers;
 
     this.state = {
+      ...this.defaultState,
       seed,
       problems,
       score: 0,
@@ -100,7 +101,7 @@ export class Test extends BaseContainer {
 
   render() {
     const { history } = this.props;
-    const { isSubmit, score, seed, problems } = this.state;
+    const { height, isSubmit, score, seed, problems } = this.state;
     return (
       <div>
         <TopBar title={`Test - (${seed})`} onBack={() => {
@@ -109,8 +110,8 @@ export class Test extends BaseContainer {
         <div className={styles.body}>
           <Scrollbars
             autoHeight
-            autoHeightMin={windowMaxHeight - barHeight}
-            autoHeightMax={windowMaxHeight - barHeight}
+            autoHeightMin={windowMinHeight - barHeight}
+            autoHeightMax={height - barHeight}
             renderThumbHorizontal={props => <div {...props} className={styles.scrollThumb} />}
             renderThumbVertical={props => <div {...props} className={styles.scrollThumb} />}
           >

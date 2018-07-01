@@ -7,13 +7,14 @@ import {
   mapStateToProps,
   mapDispatchToProps,
 } from 'renderer/containers/Base';
-import { windowMaxHeight, barHeight } from 'Constant';
+import { windowMinHeight, barHeight } from 'Constant';
 import { TopBar } from 'renderer/containers/TopBar';
 import { WordSetList } from 'renderer/components/WordSetList';
 import * as styles from './styles.css';
 
 export class Learn extends BaseContainer {
   render() {
+    const { height } = this.state;
     return (
       <div>
         <TopBar title="Learn" onBack={() => {
@@ -22,8 +23,8 @@ export class Learn extends BaseContainer {
         <div className={styles.body}>
           <Scrollbars
             autoHeight
-            autoHeightMin={windowMaxHeight - barHeight}
-            autoHeightMax={windowMaxHeight - barHeight}
+            autoHeightMin={windowMinHeight - barHeight}
+            autoHeightMax={height - barHeight}
             renderThumbHorizontal={props => <div {...props} className={styles.scrollThumb} />}
             renderThumbVertical={props => <div {...props} className={styles.scrollThumb} />}
           >

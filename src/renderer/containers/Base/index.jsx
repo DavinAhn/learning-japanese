@@ -8,8 +8,19 @@ import WordAccessor from 'renderer/utils/WordAccessor';
 const { ipcRenderer } = window.require('electron');
 
 export class BaseContainer extends React.PureComponent {
+  get defaultState() {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  }
+
   constructor(props, context) {
     super(props, context);
+
+    this.updateDimensions = this.updateDimensions.bind(this);
+    this.state = this.defaultState;
+
     ipcRenderer.on(Event.SENDLIST, (event, args) => {
       this.props.updateList(args);
     });
@@ -18,6 +29,15 @@ export class BaseContainer extends React.PureComponent {
 
   componentWillUnmount() {
     ipcRenderer.removeAllListeners(Event.SENDLIST);
+    window.removeEventListener('resize', this.updateDimensions);
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.updateDimensions);
+  }
+
+  updateDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   getWordAccessor() {
