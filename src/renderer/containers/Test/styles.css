@@ -1,0 +1,23 @@
+.body {
+  margin-top: 32px;
+}
+
+.list {
+  padding: 0;
+  margin: 0;
+}
+
+.footer {
+  padding: 30px;
+  text-align: center;
+}
+
+.score {
+  padding: 25px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.scrollThumb {
+  background: var(--blueGray70);
+}

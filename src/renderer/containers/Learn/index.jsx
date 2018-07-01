@@ -16,7 +16,7 @@ export class Learn extends BaseContainer {
   render() {
     return (
       <div>
-        <TopBar title="LJ" onBack={() => {
+        <TopBar title="Learn" onBack={() => {
           this.props.history.goBack();
         }} />
         <div className={styles.body}>

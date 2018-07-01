@@ -16,6 +16,10 @@ export class BaseContainer extends React.PureComponent {
     ipcRenderer.send(Event.REQUESTLIST);
   }
 
+  componentWillUnmount() {
+    ipcRenderer.removeAllListeners(Event.SENDLIST);
+  }
+
   getWordAccessor() {
     return new WordAccessor(this.props.state.app.list);
   }

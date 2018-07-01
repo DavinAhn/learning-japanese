@@ -7,4 +7,16 @@ export default class WordAccessor {
   constructor(data) {
     this._sets = data.map((obj) => new Set(obj));
   }
+
+  getWords() {
+    return this._sets
+      .map((set) => {
+        return set.sections
+          .map((section) => {
+            return section.words;
+          })
+          .reduce((l1, l2) => l1.concat(l2), []);;
+      })
+      .reduce((l1, l2) => l1.concat(l2), []);
+  }
 }

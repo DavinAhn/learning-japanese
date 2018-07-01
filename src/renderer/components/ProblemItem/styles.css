@@ -1,0 +1,15 @@
+.item {
+  display: block;
+  list-style-type: none;
+  padding: 20px 0;
+}
+
+.number {
+  display: inline-block;
+  padding-left: 20px;
+}
+
+.input {
+  padding-top: 20px;
+  text-align: center;
+}
