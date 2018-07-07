@@ -5,6 +5,7 @@ export default class Word {
   get furi() { return this._furi; }
   get level() { return this._level; }
   get meanings() { return this._meanings; }
+  get desc() { return this._desc; }
   get hash() { return `${this._super.hash}_${this.id}`; }
 
   constructor(section, data) {
@@ -15,5 +16,6 @@ export default class Word {
     this._furi = data.furi;
     this._level = data.level;
     this._meanings = data.meanings;
+    this._desc = data.desc;
   }
 }
