@@ -11,7 +11,7 @@ export class WordSet extends React.PureComponent {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      shown: true,
+      shown: false,
     };
   }
 
@@ -25,9 +25,9 @@ export class WordSet extends React.PureComponent {
           {set.id} ({set.wordCount})
         </div>
         <hr />
-        {set.sections.map((section) => (
+        {this.state.shown ? set.sections.map((section) => (
           <WordSection key={`WordSection_${section.hash}`} section={section} />
-        ))}
+        )) : ''}
       </ul>
     );
   }
