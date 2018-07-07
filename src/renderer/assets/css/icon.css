@@ -1,0 +1,7 @@
+:root {
+  --icon-back: resolve('images/icon-back.svg');
+  --icon-checkbox-checkmark: resolve('images/icon-checkbox-checkmark.svg');
+  --icon-close: resolve('images/icon-close.svg');
+  --icon-minimize: resolve('images/icon-minimize.svg');
+  --icon-radio-checkmark: resolve('images/icon-radio-checkmark.svg');
+}

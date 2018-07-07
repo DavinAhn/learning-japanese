@@ -8,7 +8,7 @@ import {
   mapStateToProps,
   mapDispatchToProps,
 } from 'renderer/containers/Base';
-import { windowMinHeight, barHeight } from 'Constant';
+import { windowMinHeight, barHeight } from 'common/Constant';
 import { Button } from 'renderer/components/Button';
 import { ProblemItem } from 'renderer/components/ProblemItem';
 import { TopBar } from 'renderer/containers/TopBar';

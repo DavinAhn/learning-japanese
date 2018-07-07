@@ -3,8 +3,9 @@ import { app, Menu, ipcMain } from 'electron';
 import settings from 'electron-settings';
 import fs from 'fs';
 import API from 'main/API';
+import AppSettings, { settingsVersion } from 'common/AppSettings';
+import Event from 'common/Event';
 import { dataPath } from 'main/Path';
-import Event from 'Event';
 import Window from 'main/Window';
 
 const isDev = process.env.ELECTRON_ENV === 'development';
@@ -31,15 +32,11 @@ const fetchData = (completion) => {
   const dataSHA = settings.get('app.dataSHA');
   API.fetchData(dataSHA, (updated, sha) => {
     if (updated) {
-      settings.set('app', {
-        dataSHA: sha,
-      });
+      settings.set('app.dataSHA', sha);
     }
     fs.readFile(dataPath, (error, encryptedBytes) => {
       if (error) {
-        settings.set('app', {
-          dataSHA: null,
-        });
+        settings.set('app.dataSHA', null);
         completion([], error);
         return;
       }
@@ -71,10 +68,32 @@ const subscribeEvents = () => {
   });
 };
 
+const initSettings = () => {
+  const initized = settings.get('app.initized');
+  if (!initized) {
+    settings.set('app', {
+      initized: true,
+      dataSHA: null,
+      settings: {},
+    });
+  }
+  const version = settings.get('app.settings.version');
+  if (version !== settingsVersion) {
+    const keys = Object.getOwnPropertyNames(AppSettings);
+    keys.forEach((key) => {
+      const setting = AppSettings[key];
+      console.log(setting.key);
+      settings.set(setting.key, setting.default);
+    });
+    settings.set('app.settings.version', settingsVersion);
+  }
+};
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+  initSettings();
   Window.loadMainWindow();
   Menu.setApplicationMenu(null);
   loadDevToolsIfNeeded();

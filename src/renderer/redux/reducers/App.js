@@ -1,16 +1,31 @@
+import settings from 'electron-settings';
 import { handleActions } from 'redux-actions';
-import { Tpye } from 'renderer/redux/actions/App';
+import { Type } from 'renderer/redux/actions/App';
 
 export const appReducer = handleActions(
   {
-    [Tpye.UPDATE_LIST]: (state, action) => {
+    [Type.UPDATE_LIST]: (state, action) => {
       return {
         ...state,
-        list: action.payload
+        list: action.payload,
+      };
+    },
+    [Type.CHANGE_SETTING]: (state, action) => {
+      const payload = action.payload;
+      const key = payload.key;
+      const value = payload.value;
+      settings.set(key, value);
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          key: value,
+        },
       };
     },
   },
   {
     list: [],
+    settings: settings.get('app.settings'),
   },
 );

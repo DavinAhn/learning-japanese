@@ -7,7 +7,7 @@ import {
   mapStateToProps,
   mapDispatchToProps,
 } from 'renderer/containers/Base';
-import { windowMinHeight, barHeight } from 'Constant';
+import { windowMinHeight, barHeight } from 'common/Constant';
 import { TopBar } from 'renderer/containers/TopBar';
 import { WordSetList } from 'renderer/components/WordSetList';
 import * as styles from './styles.css';

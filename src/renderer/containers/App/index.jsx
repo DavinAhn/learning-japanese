@@ -26,6 +26,10 @@ export class App extends BaseContainer {
           <Link to={'/test'}>
             <Button label="테스트" />
           </Link>
+          <br /><br /><br />
+          <Link to={'/settings'}>
+            <Button label="설정" />
+          </Link>
         </div>
       </div>
     );

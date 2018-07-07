@@ -2,7 +2,7 @@ import cx from 'classnames';
 import * as React from 'react';
 // import { bindActionCreators } from 'redux';
 import * as AppActions from 'renderer/redux/actions/App';
-import Event from 'Event';
+import Event from 'common/Event';
 import WordAccessor from 'renderer/utils/WordAccessor';
 
 const { ipcRenderer } = window.require('electron');
