@@ -12,14 +12,14 @@ export const appReducer = handleActions(
     },
     [Type.CHANGE_SETTING]: (state, action) => {
       const payload = action.payload;
-      const key = payload.key;
+      const keyComponents = payload.key.split('.');
       const value = payload.value;
-      settings.set(key, value);
+      settings.set(keyComponents.join('.'), value);
       return {
         ...state,
         settings: {
           ...state.settings,
-          key: value,
+          [keyComponents[keyComponents.length - 1]]: value,
         },
       };
     },

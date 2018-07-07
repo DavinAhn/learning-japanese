@@ -12,7 +12,12 @@ export class ProblemItem extends React.PureComponent {
     problem: PropTypes.object.isRequired,
     onChangeValue: PropTypes.func.isRequired,
     score: PropTypes.object,
+    options: PropTypes.object,
   }
+
+  static defaultProps = {
+    options: {},
+  };
 
   get readingInputKey() { return `InputBox_${this.props.problem.hash}_reading`; }
 
@@ -82,10 +87,16 @@ export class ProblemItem extends React.PureComponent {
       font-size: 50px;
       `;
 
-    const { num, problem } = this.props;
-    const props = {
-      word: problem.text
-    };
+    const { num, problem, options } = this.props;
+    const showFuri = options.showFuri;
+    let props = { word: problem.text };
+    if (showFuri) {
+      if (problem.furi) {
+        props.furi = problem.furi;
+      } else {
+        props.reading = problem.readings[0];
+      }
+    }
 
     return (
       <li className={styles.item}>
@@ -96,7 +107,7 @@ export class ProblemItem extends React.PureComponent {
             <Wrapper lang="ja">
               {pairs.map(([furigana, text], index) => (
                 <Pair key={index}>
-                  <Text>{furigana}</Text>
+                  {showFuri ? <Text>{furigana}</Text> : ''}
                   <Furi>{text}</Furi>
                 </Pair>
               ))}

@@ -7,7 +7,12 @@ import * as styles from './styles.css';
 export class WordItem extends React.PureComponent {
   static propTypes = {
     word: PropTypes.object.isRequired,
+    options: PropTypes.object,
   }
+
+  static defaultProps = {
+    options: {},
+  };
 
   render() {
     const Wrapper = styled(ReactFuri.Wrapper)`
@@ -29,7 +34,8 @@ export class WordItem extends React.PureComponent {
       font-size: 70px;
       `;
 
-    const { word } = this.props;
+    const { word, options } = this.props;
+    const showFuri = options.showFuri;
     const mean = word.meanings.join(', ');
     let props = { word: word.text };
     if (word.furi) {
@@ -48,7 +54,7 @@ export class WordItem extends React.PureComponent {
               <Wrapper lang="ja">
                 {pairs.map(([furigana, text], index) => (
                   <Pair key={index}>
-                    <Text>{furigana}</Text>
+                    {showFuri ? <Text>{furigana}</Text> : ''}
                     <Furi>{text}</Furi>
                   </Pair>
                 ))}

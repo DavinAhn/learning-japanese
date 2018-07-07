@@ -6,7 +6,12 @@ import * as styles from './styles.css';
 export class WordSection extends React.PureComponent {
   static propTypes = {
     section: PropTypes.object.isRequired,
+    options: PropTypes.object,
   }
+
+  static defaultProps = {
+    options: {},
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -16,7 +21,7 @@ export class WordSection extends React.PureComponent {
   }
 
   render() {
-    const { section } = this.props;
+    const { section, options } = this.props;
     return (
       <ul className={styles.section}>
         <div className={styles.sectionTitle} onClick={() => {
@@ -26,7 +31,7 @@ export class WordSection extends React.PureComponent {
         </div>
         <hr />
         {this.state.shown ? section.words.map((word) => (
-          <WordItem key={`WordItem_${word.hash}`} word={word} />
+          <WordItem key={`WordItem_${word.hash}`} word={word} options={options} />
         )) : ''}
       </ul>
     );

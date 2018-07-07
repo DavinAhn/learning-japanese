@@ -18,13 +18,14 @@ export class Test extends BaseContainer {
   constructor(props, context) {
     super(props, context);
 
-    const words = this.getWordAccessor().getWords();
-    const maxCount = 100;
+    const skipSetIds = this.getSettings().setsToExcloudeInTest;
+    const words = this.getWordAccessor().getWords(skipSetIds);
+    const maxCount = this.getSettings().numberOfTestProblems;
     const problems = [];
     const check = {};
     const seed = parseInt(Date.now() / (1000 * 60), 10);
     Math.seedrandom(seed);
-    while (true) {
+    while (words.length) {
       const idx = parseInt(Math.random() * 100000000, 10) % words.length;
       if (idx >= 0 && !check[idx]) {
         problems.push(words[idx]);
@@ -57,6 +58,7 @@ export class Test extends BaseContainer {
     const normalize = (string) => {
       return string.replace(/\s/g, '');
     };
+
     this.answers.forEach((answer, idx) => {
       const problem = problems[idx];
       const score = { reading: false, meaning: false };
@@ -72,14 +74,19 @@ export class Test extends BaseContainer {
       }
       scorecard.push(score);
     });
+
+    const shouldPerfectAnswer = this.getSettings().shouldPerfectAnswer;
     this.setState({
       isSubmit: true,
       scorecard,
       score: (scorecard
         .map((score) => {
+          if (shouldPerfectAnswer) {
+            return score.reading && score.meaning;
+          }
           return ((score.reading << 0) + (score.meaning << 0));
         })
-        .reduce((s1, s2) => s1 + s2, 0) / (problems.length * 2)) * 100
+        .reduce((s1, s2) => s1 + s2, 0) / (problems.length * (shouldPerfectAnswer ? 1 : 2))) * 100
     });
   }
 
@@ -90,6 +97,9 @@ export class Test extends BaseContainer {
       problem,
       onChangeValue: (num, answer) => {
         this.answers[num - 1] = answer;
+      },
+      options: {
+        showFuri: this.getSettings().shownFuriganaWhenTesting,
       }
     };
     const score = this.state.scorecard[idx];

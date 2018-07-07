@@ -44,6 +44,10 @@ export class BaseContainer extends React.PureComponent {
     return new WordAccessor(this.props.state.app.list);
   }
 
+  getSettings() {
+    return this.props.state.app.settings;
+  }
+
   getClassName(...args) {
     const { className } = this.props;
     return cx(...args, className);

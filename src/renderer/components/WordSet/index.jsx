@@ -6,7 +6,12 @@ import * as styles from './styles.css';
 export class WordSet extends React.PureComponent {
   static propTypes = {
     set: PropTypes.object.isRequired,
+    options: PropTypes.object,
   }
+
+  static defaultProps = {
+    options: {},
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -16,7 +21,7 @@ export class WordSet extends React.PureComponent {
   }
 
   render() {
-    const { set } = this.props;
+    const { set, options } = this.props;
     return (
       <ul className={styles.set}>
         <div className={styles.setTitle} onClick={() => {
@@ -26,7 +31,7 @@ export class WordSet extends React.PureComponent {
         </div>
         <hr />
         {this.state.shown ? set.sections.map((section) => (
-          <WordSection key={`WordSection_${section.hash}`} section={section} />
+          <WordSection key={`WordSection_${section.hash}`} section={section} options={options} />
         )) : ''}
       </ul>
     );
