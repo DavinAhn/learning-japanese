@@ -1,0 +1,18 @@
+.checkbox {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+  background-color: var(--white);
+  border: solid 0.5px var(--slateGray30);
+  text-align: center;
+  vertical-align: middle;
+  line-height: 12px;
+  appearance: none;
+
+  &:checked {
+    background: var(--dodgerBlue50) var(--icon-checkbox-checkmark) no-repeat 100% 100%;
+    border: solid 0.5px var(--dodgerBlue60);
+    align-content: center;
+  }
+}

@@ -1,6 +1,7 @@
 @import 'normalize.css';
 @import 'font.css';
 @import 'color.css';
+@import 'icon.css';
 
 body {
   font-size: 1em;

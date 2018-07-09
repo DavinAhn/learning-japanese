@@ -8,8 +8,9 @@ export default class WordAccessor {
     this._sets = data.map((obj) => new Set(obj));
   }
 
-  getWords() {
+  getWords(skipSetIds = []) {
     return this._sets
+      .filter((set) => skipSetIds.find((id) => id === set.id) === undefined)
       .map((set) => {
         return set.sections
           .map((section) => {

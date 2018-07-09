@@ -1,7 +1,9 @@
 import { createAction } from 'redux-actions';
 
-export const Tpye = {
+export const Type = {
   UPDATE_LIST: 'UPDATE_LIST',
+  CHANGE_SETTING: "CHANGE_SETTING"
 }
 
-export const updateList = createAction(Tpye.UPDATE_LIST, list => list);
+export const updateList = createAction(Type.UPDATE_LIST);
+export const changeSetting = createAction(Type.CHANGE_SETTING);
