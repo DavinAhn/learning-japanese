@@ -13,7 +13,7 @@ let limit = 0;
 const fetchData = (dataSHA, updated, error) => {
   let time = new Date().getTime();
   isOnline({ timeout: 1000 }).then(online => {
-    if (!online && limit < time) {
+    if (online && limit < time) {
       axios.get(`${base}/contents/data?ref=master`, { timeout })
         .then((response) => {
           const fileInfo = response.data.find(item => item.name === path.basename(dataPath));
