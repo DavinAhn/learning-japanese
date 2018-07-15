@@ -82,8 +82,9 @@ const initSettings = () => {
     const keys = Object.getOwnPropertyNames(AppSettings);
     keys.forEach((key) => {
       const setting = AppSettings[key];
-      console.log(setting.key);
-      settings.set(setting.key, setting.default);
+      if (!settings.has(setting.key)) {
+        settings.set(setting.key, setting.default);
+      }
     });
     settings.set('app.settings.version', settingsVersion);
   }
