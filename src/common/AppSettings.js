@@ -23,13 +23,13 @@ const AppSettings = {
     default: [],
   },
   focusOnRecentProblemSet: {
-    desc: '최근 문제 세트 위주로 테스트할지',
-    key: `${prefix}.focusOnRecentProblemSet`,
+    desc: '최근에 등록된 문제 세트 위주로 테스트할지',
+    key: `${prefix}.focusOnLatestProblemSet`,
     default: false,
   },
   recentProblemSetRatio: {
-    desc: '최근 문제 세트 위주로 테스트할 때 비중을 얼마나 둘지',
-    key: `${prefix}.recentProblemSetRatio`,
+    desc: '최근에 등록된 문제 세트 위주로 테스트할 때 비중을 얼마나 둘지',
+    key: `${prefix}.latestProblemSetRatio`,
     default: 80,
     case: [
       { label: '100%', value: 100, },
