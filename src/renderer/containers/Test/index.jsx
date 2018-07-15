@@ -18,9 +18,27 @@ export class Test extends BaseContainer {
   constructor(props, context) {
     super(props, context);
 
+    let result = this.makeProblems();
+    let answers = [];
+    for (let i = 0; i < result.length; i += 1) {
+      answers.push({});
+    }
+    this.answers = answers;
+
+    this.state = {
+      ...this.defaultState,
+      seed: result.seed,
+      problems: result.problems,
+      score: 0,
+      scorecard: [],
+      isSubmit: false
+    };
+  }
+
+  makeProblems() {
     const skipSetIds = this.getSettings().setsToExcloudeInTest;
     const words = this.getWordAccessor().getWords(skipSetIds);
-    const maxCount = this.getSettings().numberOfTestProblems;
+    const maxCount = Math.min(this.getSettings().numberOfTestProblems, words.length);
     const problems = [];
     const check = {};
     const seed = parseInt(Date.now() / (1000 * 60), 10);
@@ -35,21 +53,7 @@ export class Test extends BaseContainer {
         break;
       }
     }
-
-    let answers = [];
-    for (let i = 0; i < maxCount; i += 1) {
-      answers.push({});
-    }
-    this.answers = answers;
-
-    this.state = {
-      ...this.defaultState,
-      seed,
-      problems,
-      score: 0,
-      scorecard: [],
-      isSubmit: false
-    };
+    return { seed, problems, length: problems.length };
   }
 
   marking() {
