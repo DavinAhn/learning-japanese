@@ -45,7 +45,12 @@ const AppSettings = {
     key: `${prefix}.shouldPerfectAnswer`,
     default: false,
   },
+  allowWrongMeaning: {
+    desc: '여러 뜻을 입력했을 때 틀린 뜻이 있더라도 맞는 뜻이 하나 이상이면 정답으로 보기',
+    key: `${prefix}.allowWrongMeaning`,
+    default: true,
+  },
 }
 
 export default AppSettings;
-export const settingsVersion = 1;
+export const settingsVersion = 2;

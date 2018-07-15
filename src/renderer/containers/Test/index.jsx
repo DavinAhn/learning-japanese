@@ -72,9 +72,18 @@ export class Test extends BaseContainer {
         }) !== undefined;
       }
       if (answer.meaning) {
-        score.meaning = problem.meanings.find((meaning) => {
-          return normalize(answer.meaning) === normalize(meaning);
-        }) !== undefined;
+        const result = answer.meaning
+          .split(',')
+          .map((answer) => {
+            return problem.meanings.find((meaning) => {
+              return normalize(answer) === normalize(meaning);
+            }) !== undefined;
+          });
+        if (this.getSettings().allowWrongMeaning) {
+          score.meaning = result.indexOf(true) > -1;
+        } else {
+          score.meaning = result.indexOf(false) === -1;
+        }
       }
       scorecard.push(score);
     });
