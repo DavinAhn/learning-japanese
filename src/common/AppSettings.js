@@ -50,7 +50,12 @@ const AppSettings = {
     key: `${prefix}.allowWrongMeaning`,
     default: true,
   },
+  allowTildeOmission: {
+    desc: '뜻에서 물결표시(~) 생략을 허용할지',
+    key: `${prefix}.allowTildeOmission`,
+    default: true,
+  },
 }
 
 export default AppSettings;
-export const settingsVersion = 2;
+export const settingsVersion = 3;

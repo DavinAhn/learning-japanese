@@ -60,7 +60,11 @@ export class Test extends BaseContainer {
     let scorecard = [];
     const { problems } = this.state;
     const normalize = (string) => {
-      return string.replace(/\s/g, '');
+      let pattern = '\s';
+      if (this.getSettings().allowTildeOmission) {
+        pattern += '|~';
+      }
+      return string.replace(new RegExp(pattern, 'g'), '');
     };
 
     this.answers.forEach((answer, idx) => {
