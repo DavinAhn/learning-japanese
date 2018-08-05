@@ -11,6 +11,7 @@ export const SectionKey = {
   ya: 'ya', yu: 'yu', yo: 'yo',
   ra: 'ra', ri: 'ri', ru: 'ru', re: 're', ro: 'ro',
   wa: 'wa', wo: 'wo',
+  '~e': '~e', '~na': '~na'
 }
 
 export default class Section {
@@ -25,6 +26,7 @@ export default class Section {
     SectionKey.ya, SectionKey.yu, SectionKey.yo,
     SectionKey.ra, SectionKey.ri, SectionKey.ru, SectionKey.re, SectionKey.ro,
     SectionKey.wa, SectionKey.wo,
+    SectionKey["~e"], SectionKey["~na"],
   ]
 
   get key() { return this._key; }
