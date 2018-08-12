@@ -3,7 +3,8 @@ import Section from './Section';
 export default class Set {
   get id() { return this._id; }
   get sections() { return this._sections; }
-  get wordCount() { return this.sections.map((section) => section.wordCount).reduce((s1, s2) => s1 + s2, 0); }
+  get words() { return this.sections.map((section) => section.words).reduce((array, words) => array.concat(words), []); }
+  get wordCount() { return this.words.length; }
   get hash() { return `${this.id}`; }
 
   constructor(data) {
@@ -13,5 +14,9 @@ export default class Set {
       .filter((key) => key.length > 0);
     this._sections = this._keys
       .map((key) => new Section(this, key, data[key]));
+  }
+
+  expand(wordFinder) {
+    this.sections.forEach((section) => section.expand(wordFinder));
   }
 }

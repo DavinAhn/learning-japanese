@@ -6,18 +6,21 @@ export default class WordAccessor {
 
   constructor(data) {
     this._sets = data.map((obj) => new Set(obj));
+    this.sets.forEach((set) => {
+      set.expand((id) => {
+        return this.getWord(id);
+      });
+    });
+  }
+
+  getWord(id) {
+    return this.getWords().find((word) => word.id === id);
   }
 
   getWords(skipSetIds = []) {
-    return this._sets
+    return this.sets
       .filter((set) => skipSetIds.find((id) => id === set.id) === undefined)
-      .map((set) => {
-        return set.sections
-          .map((section) => {
-            return section.words;
-          })
-          .reduce((l1, l2) => l1.concat(l2), []);;
-      })
+      .map((set) => set.words)
       .reduce((l1, l2) => l1.concat(l2), []);
   }
 }

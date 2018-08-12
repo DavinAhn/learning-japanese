@@ -1,3 +1,4 @@
+import Refs from 'renderer/models/Refs';
 import Word from 'renderer/models/Word';
 
 export const SectionKey = {
@@ -37,6 +38,24 @@ export default class Section {
   constructor(set, key, data) {
     this._super = set;
     this._key = key;
-    this._words = data.map((obj) => new Word(this, obj));
+    this._words = data.map((obj) => {
+      if (obj.refs) {
+        return new Refs(obj.refs);
+      } else {
+        return new Word(this, obj);
+      }
+    });
+  }
+
+  expand(wordFinder) {
+    this._words = this.words.map((item) => {
+      if (item instanceof Refs) {
+        return item.list.map((id) => {
+          return wordFinder(id);
+        });
+      } else {
+        return item;
+      }
+    }).reduce((array, item) => array.concat(item), []);
   }
 }
